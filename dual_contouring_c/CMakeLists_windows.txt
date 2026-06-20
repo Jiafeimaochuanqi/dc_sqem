@@ -1,0 +1,60 @@
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+if(DEFINED ENV{CONDA_PREFIX})
+    set(CONDA_PREFIX $ENV{CONDA_PREFIX})
+    set(Python3_ROOT_DIR "${CONDA_PREFIX}")
+    set(Python3_EXECUTABLE "${CONDA_PREFIX}/python.exe")
+endif()
+
+find_package(Python3 COMPONENTS Interpreter Development REQUIRED)
+
+execute_process(
+    COMMAND ${Python3_EXECUTABLE} -c "import pybind11; print(pybind11.get_cmake_dir())"
+    OUTPUT_VARIABLE pybind11_DIR
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+find_package(pybind11 REQUIRED)
+
+execute_process(
+    COMMAND ${Python3_EXECUTABLE} -c "import numpy; print(numpy.get_include())"
+    OUTPUT_VARIABLE NUMPY_INCLUDE_DIR
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+
+find_package(OpenMP REQUIRED)
+
+add_library(GRAPH_GROUPING MODULE
+    src/py_api.cpp
+    src/sqef.cpp
+    src/tangent.cpp
+    src/dbscan.cpp
+    src/plane_grouping.cpp
+    src/SegmentOcclusionCheck.cpp
+    src/cloud_rvd.cpp
+    src/octree_node.cpp
+    src/octree.cpp
+)
+
+set_target_properties(GRAPH_GROUPING PROPERTIES
+    PREFIX ""
+    SUFFIX ".pyd"
+)
+
+target_include_directories(GRAPH_GROUPING PRIVATE
+    ${Python3_INCLUDE_DIRS}
+    ${NUMPY_INCLUDE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
+
+target_link_libraries(GRAPH_GROUPING PRIVATE
+    pybind11::module
+    Python3::Python
+    OpenMP::OpenMP_CXX
+)
+
+if(MSVC)
+    target_compile_options(GRAPH_GROUPING PRIVATE /W3 /EHsc /utf-8 /bigobj)
+    target_compile_definitions(GRAPH_GROUPING PRIVATE NOMINMAX _USE_MATH_DEFINES)
+endif()

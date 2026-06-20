@@ -1,0 +1,8 @@
+ConfigArgParse
+matplotlib
+numpy
+open3d
+pyvista
+scikit_learn
+scipy
+trimesh

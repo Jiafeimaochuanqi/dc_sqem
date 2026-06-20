@@ -1,0 +1,11 @@
+#main CMakeLists.txt
+cmake_minimum_required(VERSION 3.10)
+project(graph_grouping_c VERSION 1.0.0 LANGUAGES CXX)
+set(CMAKE_BUILD_TYPE Release) 
+if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+    include(CMakeLists_ubuntu.txt)
+elseif(CMAKE_SYSTEM_NAME STREQUAL "Windows")
+    include(CMakeLists_windows.txt)
+else()
+    message(FATAL_ERROR "Unsupported operating system: ${CMAKE_SYSTEM_NAME}")
+endif()
