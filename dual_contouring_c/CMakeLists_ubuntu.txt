@@ -8,13 +8,17 @@ endif()
 # ============================================
 # Python/pybind11
 # ============================================
+find_package(Python3 REQUIRED COMPONENTS Interpreter)
+
+set(PYTHON_MAJOR ${Python3_VERSION_MAJOR})
+set(PYTHON_MINOR ${Python3_VERSION_MINOR})
 option(BUILD_PYTHON_MODULE "Build Python module with pybind11" ON)
 
 if(BUILD_PYTHON_MODULE)
     find_package(Python3 COMPONENTS Interpreter Development REQUIRED)
     message(STATUS "Python executable found: ${Python3_EXECUTABLE}")
 
-    set(pybind11_DIR ${CONDA_PREFIX}/lib/python3.10/site-packages/pybind11/share/cmake/pybind11)
+    set(pybind11_DIR ${CONDA_PREFIX}/lib/python${PYTHON_MAJOR}.${PYTHON_MINOR}/site-packages/pybind11/share/cmake/pybind11)
     find_package(pybind11 REQUIRED)
 
     execute_process(
