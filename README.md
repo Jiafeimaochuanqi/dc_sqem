@@ -1,4 +1,4 @@
-# DC-SQEM source code
+# [DC-SQEM](https://dc-sqem.github.io/) source code
 
 > DC-SQEM: Medial Mesh Extraction by Dual Contouring with Spherical
 > Quadric Error Metric
