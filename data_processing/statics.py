@@ -183,8 +183,8 @@ def parse_obj_topology(obj_path: Path, use_all_vertices: bool = False):
 
 if __name__ == "__main__":
     #INPUTDIR="/mnt/WindowsH/octree_group/abc_test_2048_100"
-    INPUTDIR="I:/octree_patch_cpp/noncad"
-    dataset="bug"
+    INPUTDIR="I:/paper_tog/error/"
+    dataset="01_00040271_8d906ab70c3140a38f825d34_trimesh_006"
     # dataset="0012280"
     #dataset="01_00040144_cdff4f5642a84a6798b49ad6_trimesh_004"
     
