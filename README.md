@@ -2,6 +2,7 @@
 
 > DC-SQEM: Medial Mesh Extraction by Dual Contouring with Spherical
 > Quadric Error Metric
+**Project page:** [https://dc-sqem.github.io/](https://dc-sqem.github.io/)
 
 ## System Requirements
 
